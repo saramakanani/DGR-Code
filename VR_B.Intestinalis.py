@@ -41,10 +41,13 @@ df_test['== one'].value_counts()
 
 
 ## generates histogram 
+## histogram frequency values were calculated for a specific file 
+## need to change these values for future histograms 
 objects = ['monoallelic','biallelic','triallelic','quadallelic']
 y_position = np.arange(len(objects))
 frequency = [155,32,6,0]
 
+### histogram format for all histograms 
 plt.bar(y_position, frequency, align='center', alpha=0.5)
 plt.xticks(y_position, objects)
 plt.ylabel('Frequency Across Sites')
