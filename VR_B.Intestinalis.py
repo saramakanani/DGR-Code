@@ -26,29 +26,20 @@ df_test = df_alleles.astype(float)
 type(np.array(df_test[cols].iloc[1:2,1:2])[0][0])
 df_test[cols].eq(float('0.0'))
 
-## output shows the number of values equal to 0, equal to 1, and greater than zero across each row
-## and puts that value into a new column
+## output shows the number of values equal to 0 and puts that value into a new column
 
-df_test['== zero'] = df_test[cols].eq(float('0.0')).sum(axis=1)
-df_test['== one'] = df_test[cols].eq(float('1.0')).sum(axis=1)
-df_test['greater_than_zero'] = df_test[cols].gt(float('0.0')).sum(axis=1)
-
-## counts the number of occurrences for each value in that column
-df_test['== zero'].value_counts()
-
-## counts the number of occurrences for each value in that column
-df_test['== one'].value_counts()
-
+df_test['equal_to_zero'] = df_test[cols].eq(float('0.0')).sum(axis=1)
+df_test['equal_to_zero'].value_counts() 
 
 ## generates histogram 
-## histogram frequency values were calculated for a specific file 
-## need to change these values for future histograms 
-objects = ['monoallelic','biallelic','triallelic','quadallelic']
-y_position = np.arange(len(objects))
-frequency = [155,32,6,0]
+x = ['Monoallelic','Biallelic','Triallelic']
+allele_type = df_test['equal_to_zero'].value_counts()
 
-### histogram format for all histograms 
-plt.bar(y_position, frequency, align='center', alpha=0.5)
-plt.xticks(y_position, objects)
-plt.ylabel('Frequency Across Sites')
-plt.title('Allele Types: VR B.Intestinalis')
+x_pos = [i for i, _ in enumerate(x)]
+
+plt.bar(x_pos, allele_type, color = 'blue')
+plt.xlabel("Allele Type")
+plt.ylabel("Frequency Across Sites")
+
+plt.xticks(x_pos, x)
+plt.show()
